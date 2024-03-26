@@ -19,6 +19,8 @@ class HorizontalCircleList extends StatefulWidget {
 
 class _HorizontalCircleListState extends State<HorizontalCircleList> {
   int selectedIndex = 0;
+  int lastSelectedIndex =
+      0; // Variable to save the index of the last selected button
 
   @override
   Widget build(BuildContext context) {
@@ -31,6 +33,8 @@ class _HorizontalCircleListState extends State<HorizontalCircleList> {
           return GestureDetector(
             onTap: () {
               setState(() {
+                lastSelectedIndex =
+                    selectedIndex; // Save the index of the last selected button
                 selectedIndex = index;
               });
               widget.onItemSelected(index);
@@ -47,6 +51,8 @@ class _HorizontalCircleListState extends State<HorizontalCircleList> {
                     : Colors.blue, // Cor do círculo
                 shape: BoxShape.circle, // Faz o container ser um círculo
               ),
+              child: Icon(
+                  Icons.access_alarm), // Adiciona um ícone dentro do círculo
             ),
           );
         },

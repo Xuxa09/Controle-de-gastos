@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class ListCard extends StatelessWidget {
+  final CardModel card;
+
+  ListCard({required this.card});
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -28,7 +32,7 @@ class ListCard extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             Text(
-              'R\$ 10,00',
+              card.amount,
               style: TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
@@ -36,7 +40,7 @@ class ListCard extends StatelessWidget {
             ),
             SizedBox(height: 4),
             Text(
-              'Compras da semana no mercado',
+              card.description,
               style: TextStyle(
                 fontSize: 16,
                 color: Colors.grey[600],
@@ -57,4 +61,13 @@ class ListCard extends StatelessWidget {
       ),
     );
   }
+}
+
+class CardModel {
+  final String amount;
+  final String description;
+  final DateTime date; // New property
+
+  CardModel(
+      {required this.amount, required this.description, required this.date});
 }

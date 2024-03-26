@@ -12,6 +12,7 @@ class HeaderCard extends StatelessWidget {
       decimalSeparator: ',',
     );
     final descricaoController = TextEditingController();
+    int lastIndexSelected; // Variable to save the last selected index
 
     void adicionar() {
       final valor = valorController.numberValue;
@@ -20,6 +21,7 @@ class HeaderCard extends StatelessWidget {
       print('Valor: \$valor');
       print('Descrição: \$descricao');
       print('Data selecionada: ${DateTime.now()}');
+      print('Último índice selecionado: \$lastIndexSelected');
     }
 
     return GestureDetector(
@@ -43,7 +45,6 @@ class HeaderCard extends StatelessWidget {
                       ),
                     ),
                     placeholder: 'Valor',
-                    prefix: Text('R\$ '),
                     keyboardType: TextInputType.number,
                     controller: valorController,
                   ),
@@ -69,9 +70,10 @@ class HeaderCard extends StatelessWidget {
             ),
             SizedBox(height: 16),
             HorizontalCircleList(
-              itemCount: 4,
+              itemCount: 10,
               onItemSelected: (index) {
                 print('Índice selecionado: \$index');
+                lastIndexSelected = index; // Save the last selected index
               },
             ),
             SizedBox(height: 16),

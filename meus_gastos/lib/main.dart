@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'widgets/HeaderCard.dart';
 import 'widgets/ListCard.dart';
 
 void main() {
@@ -8,7 +7,7 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  const MyApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +29,7 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
+  const MyHomePage({Key? key, required this.title}) : super(key: key);
 
   final String title;
 
@@ -65,26 +64,59 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-          title: Text(widget.title),
+      appBar: AppBar(
+        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        title: Text(
+          widget.title,
+          style: const TextStyle(fontSize: 18), // Diminui a fonte do título
         ),
-        body: Column(
-          children: [
-            HeaderCard(),
-            Expanded(
-              child: ListView.builder(
-                itemCount: 4,
-                itemBuilder: (context, index) {
-                  return Padding(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                    child: ListCard(),
-                  );
-                },
-              ),
+      ),
+      body: Column(
+        children: [
+          Expanded(
+            child: ListView.builder(
+              itemCount: cardList.length,
+              itemBuilder: (context, index) {
+                return Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                  child: ListCard(
+                    card: cardList[index],
+                  ),
+                );
+              },
             ),
-          ],
-        ));
+          ),
+        ],
+      ),
+    );
   }
 }
+
+List<CardModel> cardList = [
+  CardModel(
+    amount: 'R\$ 10,00',
+    description: 'Compras da semana no mercado',
+    date: DateTime.now(),
+  ),
+  CardModel(
+    amount: 'R\$ 20,00',
+    description: 'Pagamento de contas',
+    date: DateTime.now(),
+  ),
+  CardModel(
+    amount: 'R\$ 15,00',
+    description: 'Cinema com amigos',
+    date: DateTime.now(),
+  ),
+  CardModel(
+    amount: 'R\$ 12,00',
+    description: 'Lanche na cafeteria',
+    date: DateTime.now(),
+  ),
+  CardModel(
+    amount: 'R\$ 8,00',
+    description: 'Transporte público',
+    date: DateTime.now(),
+  ),
+];
