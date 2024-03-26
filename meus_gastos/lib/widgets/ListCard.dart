@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:meus_gastos/models/CardModel.dart';
 
 class ListCard extends StatelessWidget {
   final CardModel card;
@@ -61,13 +62,4 @@ class ListCard extends StatelessWidget {
       ),
     );
   }
-}
-
-class CardModel {
-  final String amount;
-  final String description;
-  final DateTime date; // New property
-
-  CardModel(
-      {required this.amount, required this.description, required this.date});
 }

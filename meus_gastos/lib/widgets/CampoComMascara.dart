@@ -22,10 +22,4 @@ class _CampoComMascaraState extends State<CampoComMascara> {
       placeholder: 'DD/MM/AA HH:mm',
     );
   }
-
-  @override
-  void dispose() {
-    _dateController.dispose();
-    super.dispose();
-  }
 }

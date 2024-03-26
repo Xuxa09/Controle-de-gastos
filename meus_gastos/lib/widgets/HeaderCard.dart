@@ -3,27 +3,42 @@ import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 import 'package:flutter/material.dart';
 import 'CampoComMascara.dart';
 import 'HorizontalCircleList.dart';
+import 'package:meus_gastos/models/CardModel.dart';
 
-class HeaderCard extends StatelessWidget {
+class HeaderCard extends StatefulWidget {
+  @override
+  _HeaderCardState createState() => _HeaderCardState();
+}
+
+class _HeaderCardState extends State<HeaderCard> {
+  final valorController = MoneyMaskedTextController(
+    leftSymbol: 'R\$ ',
+    decimalSeparator: ',',
+  );
+  final descricaoController = TextEditingController();
+  int lastIndexSelected = 0; // Variable to save the last selected index
+
+  void adicionar() {
+    final valor = valorController.numberValue;
+    final descricao = descricaoController.text;
+
+    final newCard = CardModel(
+      amount: valorController.text,
+      description: descricaoController.text,
+      date: DateTime.now(),
+    );
+    CardService.addCard(newCard);
+  }
+
+  @override
+  void dispose() {
+    valorController.dispose();
+    descricaoController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
-    final valorController = MoneyMaskedTextController(
-      leftSymbol: 'R\$ ',
-      decimalSeparator: ',',
-    );
-    final descricaoController = TextEditingController();
-    int lastIndexSelected; // Variable to save the last selected index
-
-    void adicionar() {
-      final valor = valorController.numberValue;
-      final descricao = descricaoController.text;
-
-      print('Valor: \$valor');
-      print('Descrição: \$descricao');
-      print('Data selecionada: ${DateTime.now()}');
-      print('Último índice selecionado: \$lastIndexSelected');
-    }
-
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus(); // Esconde o teclado ao clicar na tela
@@ -72,7 +87,6 @@ class HeaderCard extends StatelessWidget {
             HorizontalCircleList(
               itemCount: 10,
               onItemSelected: (index) {
-                print('Índice selecionado: \$index');
                 lastIndexSelected = index; // Save the last selected index
               },
             ),
