@@ -3,6 +3,9 @@ import 'package:intl/intl.dart';
 import 'widgets/HeaderCard.dart';
 import 'widgets/ListCard.dart';
 import 'models/CardModel.dart';
+import 'services/CardService.dart';
+import 'package:meus_gastos/services/CardService.dart';
+import 'package:meus_gastos/services/CardService.dart' as service;
 
 void main() {
   runApp(const MyApp());
@@ -40,27 +43,28 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
   final TextEditingController _dateController = TextEditingController();
+  List<CardModel> cardList =
+      []; // Certifique-se de que a lista esteja inicializada
 
   @override
   void initState() {
     super.initState();
-    // Inicializa o controlador com a data e hora atual
-    _dateController.text = DateFormat('dd/MM/yy HH:mm').format(DateTime.now());
+    loadCards();
+  }
+
+  void loadCards() async {
+    var cards = await service.CardService
+        .retrieveCards(); // Carregar os dados assíncronos
+    setState(() {
+      cardList = cards;
+    });
   }
 
   @override
   void dispose() {
-    // Lembre-se de limpar o controlador quando o Widget for desmontado
     _dateController.dispose();
     super.dispose();
-  }
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
   }
 
   @override
@@ -70,7 +74,7 @@ class _MyHomePageState extends State<MyHomePage> {
           backgroundColor: Theme.of(context).colorScheme.inversePrimary,
           title: Text(
             widget.title,
-            style: TextStyle(fontSize: 18), // Diminui a fonte do título
+            style: TextStyle(fontSize: 18),
           ),
         ),
         body: Column(
@@ -93,4 +97,27 @@ class _MyHomePageState extends State<MyHomePage> {
           ],
         ));
   }
+
+  List<CardModel> cardList = [
+    CardModel(
+        amount: 'R\$ 10,00',
+        description: 'Compras da semana no mercado',
+        date: DateTime.now()),
+    CardModel(
+        amount: 'R\$ 20,00',
+        description: 'Pagamento de contas',
+        date: DateTime.now()),
+    CardModel(
+        amount: 'R\$ 15,00',
+        description: 'Cinema com amigos',
+        date: DateTime.now()),
+    CardModel(
+        amount: 'R\$ 12,00',
+        description: 'Lanche na cafeteria',
+        date: DateTime.now()),
+    CardModel(
+        amount: 'R\$ 8,00',
+        description: 'Transporte público',
+        date: DateTime.now()),
+  ];
 }
