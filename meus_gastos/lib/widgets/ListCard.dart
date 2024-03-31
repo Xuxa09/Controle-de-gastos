@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:meus_gastos/models/CardModel.dart';
+import 'package:intl/intl.dart';
 
 class ListCard extends StatelessWidget {
   final CardModel card;
@@ -32,12 +33,21 @@ class ListCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
           children: [
-            Text(
-              card.amount,
-              style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-              ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  card.amount,
+                  style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                CircleAvatar(
+                  backgroundColor: Colors.pink[100],
+                  radius: 12,
+                ),
+              ],
             ),
             SizedBox(height: 4),
             Text(
@@ -48,14 +58,15 @@ class ListCard extends StatelessWidget {
               ),
             ),
             SizedBox(height: 8),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                CircleAvatar(
-                  backgroundColor: Colors.pink[100],
-                  radius: 12,
+            Align(
+              alignment: Alignment.centerRight,
+              child: Text(
+                DateFormat('HH:mm dd/MM/yyyy').format(card.date),
+                style: TextStyle(
+                  fontSize: 16,
+                  color: Colors.grey[600],
                 ),
-              ],
+              ),
             ),
           ],
         ),

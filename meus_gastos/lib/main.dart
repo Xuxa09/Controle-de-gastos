@@ -79,7 +79,13 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
         body: Column(
           children: [
-            HeaderCard(),
+            HeaderCard(
+              onAddClicked: () {
+                setState(() {
+                  loadCards();
+                });
+              },
+            ),
             Expanded(
               child: ListView.builder(
                 itemCount: cardList.length,
@@ -88,7 +94,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     padding:
                         const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                     child: ListCard(
-                      card: cardList[index],
+                      card: cardList[cardList.length - index - 1],
                     ),
                   );
                 },
@@ -97,27 +103,4 @@ class _MyHomePageState extends State<MyHomePage> {
           ],
         ));
   }
-
-  List<CardModel> cardList = [
-    CardModel(
-        amount: 'R\$ 10,00',
-        description: 'Compras da semana no mercado',
-        date: DateTime.now()),
-    CardModel(
-        amount: 'R\$ 20,00',
-        description: 'Pagamento de contas',
-        date: DateTime.now()),
-    CardModel(
-        amount: 'R\$ 15,00',
-        description: 'Cinema com amigos',
-        date: DateTime.now()),
-    CardModel(
-        amount: 'R\$ 12,00',
-        description: 'Lanche na cafeteria',
-        date: DateTime.now()),
-    CardModel(
-        amount: 'R\$ 8,00',
-        description: 'Transporte público',
-        date: DateTime.now()),
-  ];
 }

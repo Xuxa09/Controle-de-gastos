@@ -6,6 +6,10 @@ import 'HorizontalCircleList.dart';
 import 'package:meus_gastos/models/CardModel.dart';
 
 class HeaderCard extends StatefulWidget {
+  final VoidCallback onAddClicked; // Delegate to notify the parent view
+
+  HeaderCard({required this.onAddClicked});
+
   @override
   _HeaderCardState createState() => _HeaderCardState();
 }
@@ -28,6 +32,11 @@ class _HeaderCardState extends State<HeaderCard> {
       date: DateTime.now(),
     );
     CardService.addCard(newCard);
+
+    Future.delayed(Duration(milliseconds: 300), () {
+      widget
+          .onAddClicked(); // Notify the parent view after a delay of 0.3 seconds
+    });
   }
 
   @override

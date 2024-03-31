@@ -11,6 +11,19 @@ class _CampoComMascaraState extends State<CampoComMascara> {
   final _dateController = MaskedTextController(mask: '00/00/00 00:00');
 
   @override
+  void initState() {
+    super.initState();
+    _dateController.text = _getCurrentDate();
+  }
+
+  String _getCurrentDate() {
+    DateTime now = DateTime.now();
+    String formattedDate =
+        '${now.day.toString().padLeft(2, '0')}/${now.month.toString().padLeft(2, '0')}/${now.year.toString().substring(2)} ${now.hour.toString().padLeft(2, '0')}:${now.minute.toString().padLeft(2, '0')}';
+    return formattedDate;
+  }
+
+  @override
   Widget build(BuildContext context) {
     return CupertinoTextField(
       controller: _dateController,

@@ -77,26 +77,3 @@ class CardService {
     }
   }
 }
-
-List<CardModel> cardList = [
-  CardModel(
-      amount: 'R\$ 10,00',
-      description: 'Compras da semana no mercado',
-      date: DateTime.now()),
-  CardModel(
-      amount: 'R\$ 20,00',
-      description: 'Pagamento de contas',
-      date: DateTime.now()),
-  CardModel(
-      amount: 'R\$ 15,00',
-      description: 'Cinema com amigos',
-      date: DateTime.now()),
-  CardModel(
-      amount: 'R\$ 12,00',
-      description: 'Lanche na cafeteria',
-      date: DateTime.now()),
-  CardModel(
-      amount: 'R\$ 8,00',
-      description: 'Transporte público',
-      date: DateTime.now()),
-];
