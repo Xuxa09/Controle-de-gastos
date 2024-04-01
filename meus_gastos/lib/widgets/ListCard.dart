@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:meus_gastos/models/CardModel.dart';
 import 'package:intl/intl.dart';
+import 'package:meus_gastos/widgets/HorizontalCircleList.dart';
 
 class ListCard extends StatelessWidget {
   final CardModel card;
@@ -12,7 +13,6 @@ class ListCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        // Hide the keyboard when the screen is tapped
         FocusScope.of(context).unfocus();
       },
       child: Container(
@@ -43,9 +43,17 @@ class ListCard extends StatelessWidget {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                CircleAvatar(
-                  backgroundColor: Colors.pink[100],
-                  radius: 12,
+                Container(
+                  width: 40,
+                  height: 40,
+                  decoration: BoxDecoration(
+                    color: Colors.black.withOpacity(0.1),
+                    shape: BoxShape.circle,
+                  ),
+                  child: Icon(
+                    getIconByCategory(getCategoryByName(
+                        card.category.replaceAll("Category.", ""))),
+                  ),
                 ),
               ],
             ),

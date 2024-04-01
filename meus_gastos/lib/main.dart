@@ -44,8 +44,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   final TextEditingController _dateController = TextEditingController();
-  List<CardModel> cardList =
-      []; // Certifique-se de que a lista esteja inicializada
+  List<CardModel> cardList = [];
 
   @override
   void initState() {
@@ -67,18 +66,21 @@ class _MyHomePageState extends State<MyHomePage> {
     super.dispose();
   }
 
+  bool _showHeaderCard = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-          title: Text(
-            widget.title,
-            style: TextStyle(fontSize: 18),
-          ),
+      appBar: AppBar(
+        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        title: Text(
+          widget.title,
+          style: TextStyle(fontSize: 18),
         ),
-        body: Column(
-          children: [
+      ),
+      body: Column(
+        children: [
+          if (_showHeaderCard) // BEGIN: Show/Hide Header Card
             HeaderCard(
               onAddClicked: () {
                 setState(() {
@@ -86,21 +88,42 @@ class _MyHomePageState extends State<MyHomePage> {
                 });
               },
             ),
-            Expanded(
-              child: ListView.builder(
-                itemCount: cardList.length,
-                itemBuilder: (context, index) {
-                  return Padding(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                    child: ListCard(
-                      card: cardList[cardList.length - index - 1],
-                    ),
-                  );
-                },
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                height: 1,
+                width: MediaQuery.of(context).size.width - 100,
+                color: Colors.black.withOpacity(0.2),
               ),
+              IconButton(
+                onPressed: () {
+                  setState(() {
+                    _showHeaderCard = !_showHeaderCard;
+                  });
+                },
+                icon: Icon(
+                  _showHeaderCard ? Icons.arrow_drop_up : Icons.arrow_drop_down,
+                ),
+              ),
+            ],
+          ),
+          Expanded(
+            child: ListView.builder(
+              itemCount: cardList.length,
+              itemBuilder: (context, index) {
+                return Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                  child: ListCard(
+                    card: cardList[cardList.length - index - 1],
+                  ),
+                );
+              },
             ),
-          ],
-        ));
+          ),
+        ],
+      ),
+    );
   }
 }

@@ -30,7 +30,9 @@ class _HeaderCardState extends State<HeaderCard> {
       amount: valorController.text,
       description: descricaoController.text,
       date: DateTime.now(),
+      category: Category.values[lastIndexSelected].toString(),
     );
+    print(Category.values[lastIndexSelected]);
     CardService.addCard(newCard);
 
     Future.delayed(Duration(milliseconds: 300), () {
@@ -63,8 +65,7 @@ class _HeaderCardState extends State<HeaderCard> {
                     decoration: BoxDecoration(
                       border: Border(
                         bottom: BorderSide(
-                          color: CupertinoColors
-                              .systemGrey5, // Altera a cor da linha inferior
+                          color: CupertinoColors.systemGrey5,
                         ),
                       ),
                     ),
@@ -108,14 +109,6 @@ class _HeaderCardState extends State<HeaderCard> {
                 child: Text('Adicionar'),
               ),
             ),
-            SizedBox(height: 24),
-            Divider(
-              height:
-                  1, // Altura total do divisor, incluindo espaço antes e depois.
-              thickness: 1, // A grossura da linha do divisor.
-              color: CupertinoColors.black, // Cor do divisor.
-            ),
-            SizedBox(height: 8),
           ],
         ),
       ),

@@ -1,16 +1,18 @@
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:meus_gastos/widgets/HorizontalCircleList.dart';
 
 class CardModel {
   final String amount;
   final String description;
   final DateTime date;
+  final String category;
 
-  CardModel({
-    required this.amount,
-    required this.description,
-    required this.date,
-  });
+  CardModel(
+      {required this.amount,
+      required this.description,
+      required this.date,
+      required this.category});
 
   // Método para converter um objeto CardModel em um mapa
   Map<String, dynamic> toJson() {
@@ -18,6 +20,7 @@ class CardModel {
       'amount': amount,
       'description': description,
       'date': date.toIso8601String(),
+      'category': category.toString(),
     };
   }
 
@@ -27,6 +30,7 @@ class CardModel {
       amount: map['amount'],
       description: map['description'],
       date: DateTime.parse(map['date']),
+      category: map['category'],
     );
   }
 }
