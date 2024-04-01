@@ -26,11 +26,9 @@ class _ValorTextFieldState extends State<ValorTextField> {
 
   void _handleFocusChange() {
     if (_focusNode.hasFocus) {
-      print("aqui2");
       _overlayEntry = _createOverlayEntry();
       Overlay.of(context)!.insert(_overlayEntry!);
     } else {
-      print("aqui1");
       _overlayEntry?.remove();
       _overlayEntry = null;
     }
@@ -46,8 +44,10 @@ class _ValorTextFieldState extends State<ValorTextField> {
         left: 0, // Use 0 para alinhar à esquerda da tela
         width: screenWidth, // Use a largura da tela
         child: KeyboardAccessory(
-          onDone: () {
-            _focusNode.unfocus();
+          onDone: (int value) {
+            widget.controller.updateValue(
+              widget.controller.numberValue + value,
+            );
           },
         ),
       ),
@@ -81,7 +81,7 @@ class _ValorTextFieldState extends State<ValorTextField> {
 }
 
 class KeyboardAccessory extends StatelessWidget {
-  final VoidCallback onDone;
+  final ValueChanged<int> onDone;
 
   const KeyboardAccessory({Key? key, required this.onDone}) : super(key: key);
 
@@ -97,27 +97,27 @@ class KeyboardAccessory extends StatelessWidget {
         children: <Widget>[
           CustomButton(
             text: '+10',
-            onPressed: onDone,
+            onPressed: () => onDone(10),
           ),
           CustomButton(
             text: '+20',
-            onPressed: onDone,
+            onPressed: () => onDone(20),
           ),
           CustomButton(
             text: '+30',
-            onPressed: onDone,
+            onPressed: () => onDone(30),
           ),
           CustomButton(
             text: '+50',
-            onPressed: onDone,
+            onPressed: () => onDone(50),
           ),
           CustomButton(
             text: '+80',
-            onPressed: onDone,
+            onPressed: () => onDone(80),
           ),
           CustomButton(
             text: '+100',
-            onPressed: onDone,
+            onPressed: () => onDone(100),
           ),
         ],
       ),
