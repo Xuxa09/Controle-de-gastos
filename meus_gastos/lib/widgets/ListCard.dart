@@ -39,7 +39,7 @@ class ListCard extends StatelessWidget {
                 Text(
                   card.amount,
                   style: TextStyle(
-                    fontSize: 24,
+                    fontSize: 16,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -65,13 +65,13 @@ class ListCard extends StatelessWidget {
                 color: Colors.grey[600],
               ),
             ),
-            SizedBox(height: 8),
+            SizedBox(height: 2),
             Align(
               alignment: Alignment.centerRight,
               child: Text(
                 DateFormat('HH:mm dd/MM/yyyy').format(card.date),
                 style: TextStyle(
-                  fontSize: 16,
+                  fontSize: 12, // Decreased font size to 14
                   color: Colors.grey[600],
                 ),
               ),

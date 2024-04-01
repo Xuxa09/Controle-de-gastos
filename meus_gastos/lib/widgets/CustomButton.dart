@@ -15,10 +15,11 @@ class CustomButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return CupertinoButton(
       child: Container(
-        width: 60,
+        width: 80,
         height: 60,
         decoration: BoxDecoration(
-          shape: BoxShape.circle,
+          shape: BoxShape.rectangle,
+          borderRadius: BorderRadius.circular(10),
           boxShadow: [
             BoxShadow(
               color: CupertinoColors.systemGreen.withOpacity(0.1),

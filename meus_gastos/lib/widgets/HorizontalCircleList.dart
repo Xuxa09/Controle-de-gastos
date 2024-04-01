@@ -5,6 +5,21 @@ import 'CampoComMascara.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
+enum Category {
+  Unknown,
+  Shopping,
+  Restaurant,
+  GasStation,
+  Home,
+  ShoppingBasket,
+  Hospital,
+  Volleyball,
+  Movie,
+  MusicNote,
+  VideoGame,
+  Drink
+}
+
 class HorizontalCircleList extends StatefulWidget {
   final int itemCount;
   final Function(int) onItemSelected;
@@ -19,19 +34,49 @@ class HorizontalCircleList extends StatefulWidget {
   _HorizontalCircleListState createState() => _HorizontalCircleListState();
 }
 
-enum Category {
-  Unknown,
-  Shopping,
-  Restaurant,
-  GasStation,
-  Home,
-  ShoppingBasket,
-  Hospital,
-  Volleyball,
-  Movie,
-  MusicNote,
-  VideoGame,
-  Drink
+class _HorizontalCircleListState extends State<HorizontalCircleList> {
+  int selectedIndex = 0;
+  int lastSelectedIndex = 0;
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: 50,
+      child: ListView.builder(
+        scrollDirection: Axis.horizontal,
+        itemCount: Category.values.length,
+        itemBuilder: (context, index) {
+          return GestureDetector(
+            onTap: () {
+              setState(() {
+                lastSelectedIndex =
+                    selectedIndex; // Save the index of the last selected button
+                selectedIndex = index;
+              });
+              widget.onItemSelected(index);
+            },
+            child: Container(
+              width: 50,
+              height: 50, // Altura para manter o aspecto do círculo
+              margin: const EdgeInsets.symmetric(
+                  horizontal: 8), // Espaçamento entre os círculos
+              decoration: BoxDecoration(
+                color: selectedIndex == index
+                    ? Colors.green.withOpacity(0.3)
+                    : Colors.black.withOpacity(
+                        0.1), // Altera a cor do círculo selecionado
+                shape: BoxShape.circle, // Faz o container ser um círculo
+              ),
+              child: Icon(
+                getIconByCategory(Category
+                    .values[index]), // Adiciona um ícone dentro do círculo
+              ),
+            ),
+          );
+        },
+      ),
+    );
+  }
 }
 
 String getCategoryNameByIndex(int index) {
@@ -118,51 +163,5 @@ IconData getIconByCategory(Category category) {
       return Icons.local_drink;
     default:
       return Icons.question_mark_rounded;
-  }
-}
-
-class _HorizontalCircleListState extends State<HorizontalCircleList> {
-  int selectedIndex = 0;
-  int lastSelectedIndex = 0;
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      height: 50, // Altura suficiente para conter o círculo e algum padding
-      child: ListView.builder(
-        scrollDirection: Axis.horizontal,
-        itemCount: Category.values.length,
-        itemBuilder: (context, index) {
-          return GestureDetector(
-            onTap: () {
-              setState(() {
-                lastSelectedIndex =
-                    selectedIndex; // Save the index of the last selected button
-                selectedIndex = index;
-              });
-              widget.onItemSelected(index);
-            },
-            child: Container(
-              width:
-                  50, // Largura suficiente para conter o círculo e algum padding
-              height: 50, // Altura para manter o aspecto do círculo
-              margin: const EdgeInsets.symmetric(
-                  horizontal: 8), // Espaçamento entre os círculos
-              decoration: BoxDecoration(
-                color: selectedIndex == index
-                    ? Colors.green.withOpacity(0.3)
-                    : Colors.black.withOpacity(
-                        0.1), // Altera a cor do círculo selecionado
-                shape: BoxShape.circle, // Faz o container ser um círculo
-              ),
-              child: Icon(
-                getIconByCategory(Category
-                    .values[index]), // Adiciona um ícone dentro do círculo
-              ),
-            ),
-          );
-        },
-      ),
-    );
   }
 }

@@ -92,7 +92,8 @@ class _HeaderCardState extends State<HeaderCard> {
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 12),
               child: CupertinoButton(
-                color: CupertinoColors.systemGreen,
+                color:
+                    CupertinoColors.systemGreen.darkHighContrastElevatedColor,
                 onPressed: adicionar,
                 child: Text(
                   'Adicionar',

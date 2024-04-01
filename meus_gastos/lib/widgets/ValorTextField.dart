@@ -89,7 +89,6 @@ class KeyboardAccessory extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       color: CupertinoColors.white,
-      padding: EdgeInsets.only(right: 10.0),
       height: 80, // Defina uma altura adequada para o container
       child: ListView(
         scrollDirection:
