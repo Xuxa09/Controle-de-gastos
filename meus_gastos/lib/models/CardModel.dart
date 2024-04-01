@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:meus_gastos/widgets/HorizontalCircleList.dart';
 
 class CardModel {
   final String amount;
@@ -8,23 +7,22 @@ class CardModel {
   final DateTime date;
   final String category;
 
-  CardModel(
-      {required this.amount,
-      required this.description,
-      required this.date,
-      required this.category});
+  CardModel({
+    required this.amount,
+    required this.description,
+    required this.date,
+    required this.category,
+  });
 
-  // Método para converter um objeto CardModel em um mapa
   Map<String, dynamic> toJson() {
     return {
       'amount': amount,
       'description': description,
       'date': date.toIso8601String(),
-      'category': category.toString(),
+      'category': category,
     };
   }
 
-  // Método para criar um objeto CardModel a partir de um mapa
   factory CardModel.fromJson(Map<String, dynamic> map) {
     return CardModel(
       amount: map['amount'],
@@ -38,7 +36,6 @@ class CardModel {
 class CardService {
   static const String _storageKey = 'cardModels';
 
-  // Método para recuperar o array de elementos salvos
   static Future<List<CardModel>> retrieveCards() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     final String? cardsString = prefs.getString(_storageKey);
@@ -52,7 +49,6 @@ class CardService {
     }
   }
 
-  // Método para adicionar um novo elemento ao array salvo
   static Future<void> addCard(CardModel cardModel) async {
     final List<CardModel> cards = await retrieveCards();
     cards.add(cardModel);
@@ -62,13 +58,11 @@ class CardService {
     await prefs.setString(_storageKey, encodedData);
   }
 
-  // Método para deletar todos os elementos do array salvo
   static Future<void> deleteAllCards() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.remove(_storageKey);
   }
 
-  // Método para imprimir todos os elementos salvos
   static Future<void> printAllCards() async {
     final List<CardModel> cards = await retrieveCards();
     if (cards.isNotEmpty) {

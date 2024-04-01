@@ -9,7 +9,7 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  const MyApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +31,7 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
+  const MyHomePage({Key? key, required this.title}) : super(key: key);
 
   final String title;
 
@@ -49,7 +49,7 @@ class _MyHomePageState extends State<MyHomePage> {
     loadCards();
   }
 
-  void loadCards() async {
+  Future<void> loadCards() async {
     var cards = await service.CardService
         .retrieveCards(); // Carregar os dados assíncronos
     setState(() {
@@ -72,12 +72,12 @@ class _MyHomePageState extends State<MyHomePage> {
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text(
           widget.title,
-          style: TextStyle(fontSize: 18),
+          style: const TextStyle(fontSize: 18),
         ),
       ),
       body: Column(
         children: [
-          if (_showHeaderCard) // BEGIN: Show/Hide Header Card
+          if (_showHeaderCard) ...[
             HeaderCard(
               onAddClicked: () {
                 setState(() {
@@ -85,6 +85,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 });
               },
             ),
+          ],
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [

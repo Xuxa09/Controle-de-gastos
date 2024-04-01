@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
-import 'package:flutter/services.dart';
 
 class CampoComMascara extends StatefulWidget {
   @override
@@ -8,7 +7,6 @@ class CampoComMascara extends StatefulWidget {
 }
 
 class _CampoComMascaraState extends State<CampoComMascara> {
-  // Criando um MaskedTextController
   final _dateController = MaskedTextController(mask: '00/00/00 00:00');
 
   @override
@@ -25,6 +23,7 @@ class _CampoComMascaraState extends State<CampoComMascara> {
   }
 
   FocusNode _focusNode = FocusNode();
+
   @override
   Widget build(BuildContext context) {
     return CupertinoTextField(
@@ -37,8 +36,7 @@ class _CampoComMascaraState extends State<CampoComMascara> {
           builder: (BuildContext context) {
             return Container(
               height: 300,
-              color:
-                  CupertinoColors.white, // Definindo o background branco opaco
+              color: CupertinoColors.white,
               child: CupertinoDatePicker(
                 mode: CupertinoDatePickerMode.dateAndTime,
                 initialDateTime: DateTime.now(),
@@ -52,7 +50,7 @@ class _CampoComMascaraState extends State<CampoComMascara> {
           },
         );
       },
-      keyboardType: TextInputType.number, // Definindo o teclado como numérico
+      keyboardType: TextInputType.number,
       decoration: BoxDecoration(
         border: Border(bottom: BorderSide(color: CupertinoColors.systemGrey5)),
       ),

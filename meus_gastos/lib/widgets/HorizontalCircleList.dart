@@ -21,12 +21,10 @@ enum Category {
 }
 
 class HorizontalCircleList extends StatefulWidget {
-  final int itemCount;
   final Function(int) onItemSelected;
 
   const HorizontalCircleList({
     Key? key,
-    required this.itemCount,
     required this.onItemSelected,
   }) : super(key: key);
 
@@ -49,27 +47,23 @@ class _HorizontalCircleListState extends State<HorizontalCircleList> {
           return GestureDetector(
             onTap: () {
               setState(() {
-                lastSelectedIndex =
-                    selectedIndex; // Save the index of the last selected button
+                lastSelectedIndex = selectedIndex;
                 selectedIndex = index;
               });
               widget.onItemSelected(index);
             },
             child: Container(
               width: 50,
-              height: 50, // Altura para manter o aspecto do círculo
-              margin: const EdgeInsets.symmetric(
-                  horizontal: 8), // Espaçamento entre os círculos
+              height: 50,
+              margin: const EdgeInsets.symmetric(horizontal: 8),
               decoration: BoxDecoration(
                 color: selectedIndex == index
                     ? Colors.green.withOpacity(0.3)
-                    : Colors.black.withOpacity(
-                        0.1), // Altera a cor do círculo selecionado
-                shape: BoxShape.circle, // Faz o container ser um círculo
+                    : Colors.black.withOpacity(0.1),
+                shape: BoxShape.circle,
               ),
               child: Icon(
-                getIconByCategory(Category
-                    .values[index]), // Adiciona um ícone dentro do círculo
+                getIconByCategory(Category.values[index]),
               ),
             ),
           );

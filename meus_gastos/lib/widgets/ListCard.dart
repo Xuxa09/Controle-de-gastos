@@ -51,8 +51,11 @@ class ListCard extends StatelessWidget {
                     shape: BoxShape.circle,
                   ),
                   child: Icon(
-                    getIconByCategory(getCategoryByName(
-                        card.category.replaceAll("Category.", ""))),
+                    getIconByCategory(
+                      getCategoryByName(
+                        card.category.replaceAll("Category.", ""),
+                      ),
+                    ),
                   ),
                 ),
               ],
@@ -71,7 +74,7 @@ class ListCard extends StatelessWidget {
               child: Text(
                 DateFormat('HH:mm dd/MM/yyyy').format(card.date),
                 style: TextStyle(
-                  fontSize: 12, // Decreased font size to 14
+                  fontSize: 12,
                   color: Colors.grey[600],
                 ),
               ),

@@ -35,14 +35,13 @@ class _ValorTextFieldState extends State<ValorTextField> {
   }
 
   OverlayEntry _createOverlayEntry() {
-    final screenWidth =
-        MediaQuery.of(context).size.width; // Obter a largura da tela
+    final screenWidth = MediaQuery.of(context).size.width;
 
     return OverlayEntry(
       builder: (context) => Positioned(
         bottom: MediaQuery.of(context).viewInsets.bottom,
-        left: 0, // Use 0 para alinhar à esquerda da tela
-        width: screenWidth, // Use a largura da tela
+        left: 0,
+        width: screenWidth,
         child: KeyboardAccessory(
           onDone: (int value) {
             widget.controller.updateValue(
@@ -89,35 +88,15 @@ class KeyboardAccessory extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       color: CupertinoColors.white,
-      height: 80, // Defina uma altura adequada para o container
+      height: 80,
       child: ListView(
-        scrollDirection:
-            Axis.horizontal, // Define a direção da rolagem como horizontal
+        scrollDirection: Axis.horizontal,
         children: <Widget>[
-          CustomButton(
-            text: '+10',
-            onPressed: () => onDone(10),
-          ),
-          CustomButton(
-            text: '+20',
-            onPressed: () => onDone(20),
-          ),
-          CustomButton(
-            text: '+30',
-            onPressed: () => onDone(30),
-          ),
-          CustomButton(
-            text: '+50',
-            onPressed: () => onDone(50),
-          ),
-          CustomButton(
-            text: '+80',
-            onPressed: () => onDone(80),
-          ),
-          CustomButton(
-            text: '+100',
-            onPressed: () => onDone(100),
-          ),
+          for (var value in [10, 20, 30, 50, 80, 100])
+            CustomButton(
+              text: '+$value',
+              onPressed: () => onDone(value),
+            ),
         ],
       ),
     );

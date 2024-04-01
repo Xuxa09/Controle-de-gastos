@@ -53,7 +53,8 @@ class _HeaderCardState extends State<HeaderCard> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        FocusScope.of(context).unfocus(); // Esconde o teclado ao clicar na tela
+        FocusScope.of(context)
+            .unfocus(); // Hide the keyboard when tapping on the screen
       },
       child: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -74,7 +75,7 @@ class _HeaderCardState extends State<HeaderCard> {
                 border: Border(
                   bottom: BorderSide(
                     color: CupertinoColors
-                        .systemGrey5, // Altera a cor da linha inferior
+                        .systemGrey5, // Change the color of the bottom line
                   ),
                 ),
               ),
@@ -83,9 +84,10 @@ class _HeaderCardState extends State<HeaderCard> {
             ),
             SizedBox(height: 16),
             HorizontalCircleList(
-              itemCount: 10,
               onItemSelected: (index) {
-                lastIndexSelected = index; // Save the last selected index
+                setState(() {
+                  lastIndexSelected = index; // Save the last selected index
+                });
               },
             ),
             SizedBox(height: 26),
