@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'widgets/HeaderCard.dart';
 import 'widgets/ListCard.dart';
 import 'models/CardModel.dart';
-import 'services/CardService.dart';
-import 'package:meus_gastos/services/CardService.dart';
 import 'package:meus_gastos/services/CardService.dart' as service;
 
 void main() {
@@ -66,7 +63,7 @@ class _MyHomePageState extends State<MyHomePage> {
     super.dispose();
   }
 
-  bool _showHeaderCard = false;
+  bool _showHeaderCard = true;
 
   @override
   Widget build(BuildContext context) {

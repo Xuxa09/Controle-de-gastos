@@ -128,7 +128,7 @@ class _HorizontalCircleListState extends State<HorizontalCircleList> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 48, // Altura suficiente para conter o círculo e algum padding
+      height: 50, // Altura suficiente para conter o círculo e algum padding
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         itemCount: Category.values.length,
@@ -144,8 +144,8 @@ class _HorizontalCircleListState extends State<HorizontalCircleList> {
             },
             child: Container(
               width:
-                  48, // Largura suficiente para conter o círculo e algum padding
-              height: 48, // Altura para manter o aspecto do círculo
+                  50, // Largura suficiente para conter o círculo e algum padding
+              height: 50, // Altura para manter o aspecto do círculo
               margin: const EdgeInsets.symmetric(
                   horizontal: 8), // Espaçamento entre os círculos
               decoration: BoxDecoration(

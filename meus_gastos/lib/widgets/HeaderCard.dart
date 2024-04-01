@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'CampoComMascara.dart';
 import 'HorizontalCircleList.dart';
 import 'package:meus_gastos/models/CardModel.dart';
+import 'ValorTextField.dart';
+import 'package:flutter/services.dart';
 
 class HeaderCard extends StatefulWidget {
   final VoidCallback onAddClicked; // Delegate to notify the parent view
@@ -32,7 +34,6 @@ class _HeaderCardState extends State<HeaderCard> {
       date: DateTime.now(),
       category: Category.values[lastIndexSelected].toString(),
     );
-    print(Category.values[lastIndexSelected]);
     CardService.addCard(newCard);
 
     Future.delayed(Duration(milliseconds: 300), () {
@@ -60,20 +61,7 @@ class _HeaderCardState extends State<HeaderCard> {
           children: [
             Row(
               children: [
-                Expanded(
-                  child: CupertinoTextField(
-                    decoration: BoxDecoration(
-                      border: Border(
-                        bottom: BorderSide(
-                          color: CupertinoColors.systemGrey5,
-                        ),
-                      ),
-                    ),
-                    placeholder: 'Valor',
-                    keyboardType: TextInputType.number,
-                    controller: valorController,
-                  ),
-                ),
+                Expanded(child: ValorTextField(controller: valorController)),
                 SizedBox(width: 8),
                 Expanded(
                   child: CampoComMascara(),
@@ -100,13 +88,16 @@ class _HeaderCardState extends State<HeaderCard> {
                 lastIndexSelected = index; // Save the last selected index
               },
             ),
-            SizedBox(height: 16),
+            SizedBox(height: 26),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 12),
               child: CupertinoButton(
                 color: CupertinoColors.systemGreen,
                 onPressed: adicionar,
-                child: Text('Adicionar'),
+                child: Text(
+                  'Adicionar',
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
               ),
             ),
           ],
