@@ -6,14 +6,14 @@ import 'package:meus_gastos/widgets/HorizontalCircleList.dart';
 
 class ListCard extends StatelessWidget {
   final CardModel card;
-  final Function() onTap;
+  final Function(CardModel) onTap; // Updated function signature
 
   ListCard({required this.card, required this.onTap});
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: onTap,
+      onTap: () => onTap(card), // Pass card as a parameter
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
         decoration: BoxDecoration(

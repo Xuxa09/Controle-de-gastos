@@ -1,17 +1,16 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
-import 'package:flutter/material.dart';
 import 'CampoComMascara.dart';
 import 'HorizontalCircleList.dart';
 import 'package:meus_gastos/models/CardModel.dart';
 import 'ValorTextField.dart';
-import 'package:flutter/services.dart';
 import 'package:meus_gastos/services/CardService.dart';
 
 class HeaderCard extends StatefulWidget {
   final VoidCallback onAddClicked; // Delegate to notify the parent view
+  final String adicionarButtonTitle; // Parameter to initialize the class
 
-  HeaderCard({required this.onAddClicked});
+  HeaderCard({required this.onAddClicked, required this.adicionarButtonTitle});
 
   @override
   _HeaderCardState createState() => _HeaderCardState();
@@ -23,7 +22,7 @@ class _HeaderCardState extends State<HeaderCard> {
     decimalSeparator: ',',
   );
   final descricaoController = TextEditingController();
-  int lastIndexSelected = 0; // Variable to save the last selected index
+  int lastIndexSelected = 0;
 
   void adicionar() {
     FocusScope.of(context).unfocus();
@@ -50,6 +49,13 @@ class _HeaderCardState extends State<HeaderCard> {
     super.dispose();
   }
 
+  String _getCurrentDate() {
+    DateTime now = DateTime.now();
+    String formattedDate =
+        '${now.day.toString().padLeft(2, '0')}/${now.month.toString().padLeft(2, '0')}/${now.year.toString().substring(2)} ${now.hour.toString().padLeft(2, '0')}:${now.minute.toString().padLeft(2, '0')}';
+    return formattedDate;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -61,7 +67,7 @@ class _HeaderCardState extends State<HeaderCard> {
               Expanded(child: ValorTextField(controller: valorController)),
               SizedBox(width: 8),
               Expanded(
-                child: CampoComMascara(),
+                child: CampoComMascara(dateText: _getCurrentDate()),
               ),
             ],
           ),
@@ -96,7 +102,7 @@ class _HeaderCardState extends State<HeaderCard> {
               color: CupertinoColors.systemGreen.darkHighContrastElevatedColor,
               onPressed: adicionar,
               child: Text(
-                'Adicionar',
+                widget.adicionarButtonTitle,
                 style: TextStyle(fontWeight: FontWeight.bold),
               ),
             ),

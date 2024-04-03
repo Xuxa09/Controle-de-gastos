@@ -2,6 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 
 class CampoComMascara extends StatefulWidget {
+  final String dateText;
+
+  CampoComMascara({required this.dateText, Key? key}) : super(key: key);
+
   @override
   _CampoComMascaraState createState() => _CampoComMascaraState();
 }
@@ -12,7 +16,7 @@ class _CampoComMascaraState extends State<CampoComMascara> {
   @override
   void initState() {
     super.initState();
-    _dateController.text = _getCurrentDate();
+    _dateController.text = widget.dateText;
   }
 
   String _getCurrentDate() {

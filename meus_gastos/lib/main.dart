@@ -3,6 +3,7 @@ import 'widgets/HeaderCard.dart';
 import 'widgets/ListCard.dart';
 import 'models/CardModel.dart';
 import 'package:meus_gastos/services/CardService.dart' as service;
+import 'package:meus_gastos/widgets/DetailScreen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -80,6 +81,7 @@ class _MyHomePageState extends State<MyHomePage> {
             Padding(
               padding: const EdgeInsets.only(top: 16, left: 16, right: 16),
               child: HeaderCard(
+                adicionarButtonTitle: 'Adicionar',
                 onAddClicked: () {
                   setState(() {
                     loadCards();
@@ -116,12 +118,15 @@ class _MyHomePageState extends State<MyHomePage> {
                   padding:
                       const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                   child: ListCard(
-                    onTap: () {
+                    onTap: (card) {
                       showDialog(
                         context: context,
                         builder: (BuildContext context) {
                           return Dialog(
-                            child: DetailScreen(card: cardList.first),
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(10),
+                              child: DetailScreen(card: card),
+                            ),
                           );
                         },
                       );
@@ -131,54 +136,6 @@ class _MyHomePageState extends State<MyHomePage> {
                 );
               },
             ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class DetailScreen extends StatelessWidget {
-  final CardModel card;
-
-  const DetailScreen({Key? key, required this.card}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.all(16.0),
-      color: Colors.white,
-      child: Column(
-        mainAxisSize:
-            MainAxisSize.min, // Faz com que o conteúdo dicte o tamanho do modal
-        children: <Widget>[
-          Container(
-            width: double.infinity,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  'Detalhes',
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                IconButton(
-                  onPressed: () {
-                    // Lógica para excluir o cartão
-                  },
-                  icon: Icon(
-                    Icons.delete,
-                    color: Colors.red,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          SizedBox(height: 24),
-          HeaderCard(
-            onAddClicked: () {},
           ),
         ],
       ),
