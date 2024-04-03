@@ -6,6 +6,7 @@ import 'HorizontalCircleList.dart';
 import 'package:meus_gastos/models/CardModel.dart';
 import 'ValorTextField.dart';
 import 'package:flutter/services.dart';
+import 'package:meus_gastos/services/CardService.dart';
 
 class HeaderCard extends StatefulWidget {
   final VoidCallback onAddClicked; // Delegate to notify the parent view
@@ -25,20 +26,20 @@ class _HeaderCardState extends State<HeaderCard> {
   int lastIndexSelected = 0; // Variable to save the last selected index
 
   void adicionar() {
+    FocusScope.of(context).unfocus();
     final valor = valorController.numberValue;
     final descricao = descricaoController.text;
 
     final newCard = CardModel(
-      amount: valorController.text,
-      description: descricaoController.text,
-      date: DateTime.now(),
-      category: Category.values[lastIndexSelected].toString(),
-    );
+        amount: valorController.text,
+        description: descricaoController.text,
+        date: DateTime.now(),
+        category: Category.values[lastIndexSelected].toString(),
+        id: CardService.generateUniqueId());
     CardService.addCard(newCard);
 
     Future.delayed(Duration(milliseconds: 300), () {
-      widget
-          .onAddClicked(); // Notify the parent view after a delay of 0.3 seconds
+      widget.onAddClicked();
     });
   }
 
@@ -51,60 +52,56 @@ class _HeaderCardState extends State<HeaderCard> {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        FocusScope.of(context)
-            .unfocus(); // Hide the keyboard when tapping on the screen
-      },
-      child: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          children: [
-            Row(
-              children: [
-                Expanded(child: ValorTextField(controller: valorController)),
-                SizedBox(width: 8),
-                Expanded(
-                  child: CampoComMascara(),
-                ),
-              ],
-            ),
-            SizedBox(height: 8),
-            CupertinoTextField(
-              decoration: BoxDecoration(
-                border: Border(
-                  bottom: BorderSide(
-                    color: CupertinoColors
-                        .systemGrey5, // Change the color of the bottom line
-                  ),
+    return Padding(
+      padding: const EdgeInsets.all(0.0),
+      child: Column(
+        children: [
+          Row(
+            children: [
+              Expanded(child: ValorTextField(controller: valorController)),
+              SizedBox(width: 8),
+              Expanded(
+                child: CampoComMascara(),
+              ),
+            ],
+          ),
+          SizedBox(height: 8),
+          CupertinoTextField(
+            decoration: BoxDecoration(
+              border: Border(
+                bottom: BorderSide(
+                  color: CupertinoColors
+                      .systemGrey5, // Change the color of the bottom line
                 ),
               ),
-              placeholder: 'Descrição',
-              controller: descricaoController,
             ),
-            SizedBox(height: 16),
-            HorizontalCircleList(
+            placeholder: 'Descrição',
+            controller: descricaoController,
+          ),
+          SizedBox(height: 16),
+          Container(
+            margin: EdgeInsets.zero,
+            child: HorizontalCircleList(
               onItemSelected: (index) {
                 setState(() {
                   lastIndexSelected = index; // Save the last selected index
                 });
               },
             ),
-            SizedBox(height: 26),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 12),
-              child: CupertinoButton(
-                color:
-                    CupertinoColors.systemGreen.darkHighContrastElevatedColor,
-                onPressed: adicionar,
-                child: Text(
-                  'Adicionar',
-                  style: TextStyle(fontWeight: FontWeight.bold),
-                ),
+          ),
+          SizedBox(height: 26),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 12),
+            child: CupertinoButton(
+              color: CupertinoColors.systemGreen.darkHighContrastElevatedColor,
+              onPressed: adicionar,
+              child: Text(
+                'Adicionar',
+                style: TextStyle(fontWeight: FontWeight.bold),
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

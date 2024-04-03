@@ -29,6 +29,7 @@ class _CampoComMascaraState extends State<CampoComMascara> {
     return CupertinoTextField(
       controller: _dateController,
       focusNode: _focusNode,
+      style: TextStyle(color: CupertinoColors.inactiveGray),
       onTap: () {
         _focusNode.unfocus();
         showCupertinoModalPopup(
