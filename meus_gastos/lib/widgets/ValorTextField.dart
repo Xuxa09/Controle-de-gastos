@@ -42,13 +42,19 @@ class _ValorTextFieldState extends State<ValorTextField> {
         bottom: MediaQuery.of(context).viewInsets.bottom,
         left: 0,
         width: screenWidth,
-        child: KeyboardAccessory(
-          onDone: (int value) {
-            widget.controller.updateValue(
-              widget.controller.numberValue + value,
-            );
-          },
-        ),
+        child: KeyboardAccessory(add: (int value) {
+          widget.controller.updateValue(
+            widget.controller.numberValue + value,
+          );
+        }, sub: (int value) {
+          double result = widget.controller.numberValue - value;
+          if (result > 0) {
+            widget.controller
+                .updateValue(widget.controller.numberValue - value);
+          } else {
+            widget.controller.updateValue(0.0);
+          }
+        }),
       ),
     );
   }
@@ -80,23 +86,42 @@ class _ValorTextFieldState extends State<ValorTextField> {
 }
 
 class KeyboardAccessory extends StatelessWidget {
-  final ValueChanged<int> onDone;
-
-  const KeyboardAccessory({Key? key, required this.onDone}) : super(key: key);
+  final ValueChanged<int> add;
+  final ValueChanged<int> sub;
+  const KeyboardAccessory({Key? key, required this.add, required this.sub})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
       color: CupertinoColors.white,
-      height: 80,
-      child: ListView(
-        scrollDirection: Axis.horizontal,
-        children: <Widget>[
-          for (var value in [10, 20, 30, 50, 80, 100])
-            CustomButton(
-              text: '+$value',
-              onPressed: () => onDone(value),
+      height: 140,
+      child: Column(
+        children: [
+          Expanded(
+            child: ListView(
+              scrollDirection: Axis.horizontal,
+              children: <Widget>[
+                for (var value in [5, 10, 20, 50, 100])
+                  CustomButton(
+                    text: '+$value',
+                    onPressed: () => add(value),
+                  ),
+              ],
             ),
+          ), // Add this line to decrease the space between the ListViews
+          Expanded(
+            child: ListView(
+              scrollDirection: Axis.horizontal,
+              children: <Widget>[
+                for (var value in [5, 10, 20, 50, 100])
+                  CustomButton2(
+                    text: '-$value',
+                    onPressed: () => sub(value),
+                  ),
+              ],
+            ),
+          ),
         ],
       ),
     );

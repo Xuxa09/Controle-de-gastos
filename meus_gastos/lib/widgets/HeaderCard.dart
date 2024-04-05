@@ -91,7 +91,7 @@ class _HeaderCardState extends State<HeaderCard> {
             placeholder: 'Descrição',
             controller: descricaoController,
           ),
-          SizedBox(height: 16),
+          SizedBox(height: 24),
           Container(
             margin: EdgeInsets.zero,
             child: HorizontalCircleList(
@@ -102,7 +102,6 @@ class _HeaderCardState extends State<HeaderCard> {
               },
             ),
           ),
-          SizedBox(height: 26),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 12),
             child: CupertinoButton(

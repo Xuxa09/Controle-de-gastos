@@ -6,18 +6,49 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 enum Category {
-  Unknown,
-  Shopping,
-  Restaurant,
-  GasStation,
-  Home,
-  ShoppingBasket,
-  Hospital,
-  Volleyball,
-  Movie,
-  MusicNote,
-  VideoGame,
-  Drink
+  Unknown, // sem categoria
+  Shopping, // mercado
+  Restaurant, // alimentação
+  GasStation, // carro
+  Home, // moradia
+  ShoppingBasket, // compras
+  Hospital, // Saúde
+  Cigarrinho, // Cigarrinho
+  Movie, // idas ao shopping
+  MusicNote, // strimings
+  VideoGame, // aplicativos
+  Drink // roles
+}
+
+String getCategoryNameByEnum(Category category) {
+  switch (category) {
+    case Category.Unknown:
+      return 'Sem categoria';
+    case Category.Shopping:
+      return 'Mercado';
+    case Category.Restaurant:
+      return 'Alimentação';
+    case Category.GasStation:
+      return 'Transporte';
+    case Category.Home:
+      return 'Moradia';
+    case Category.ShoppingBasket:
+      return 'Compras';
+    case Category.Hospital:
+      return 'Saúde';
+    case Category.Cigarrinho:
+      return 'Cigarrinho';
+    case Category.Movie:
+      return 'Streaming';
+    case Category.MusicNote:
+      return 'Gambit';
+    case Category.VideoGame:
+      return 'Games';
+    case Category.Drink:
+      return 'Bebidas';
+    default:
+      return '';
+  }
 }
 
 class HorizontalCircleList extends StatefulWidget {
@@ -39,7 +70,7 @@ class _HorizontalCircleListState extends State<HorizontalCircleList> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 50,
+      height: 100, // Ajuste a altura para acomodar o círculo e o texto
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         itemCount: Category.values.length,
@@ -52,19 +83,34 @@ class _HorizontalCircleListState extends State<HorizontalCircleList> {
               });
               widget.onItemSelected(index);
             },
-            child: Container(
-              width: 50,
-              height: 50,
-              margin: const EdgeInsets.symmetric(horizontal: 8),
-              decoration: BoxDecoration(
-                color: selectedIndex == index
-                    ? Colors.green.withOpacity(0.3)
-                    : Colors.black.withOpacity(0.1),
-                shape: BoxShape.circle,
-              ),
-              child: Icon(
-                getIconByCategory(Category.values[index]),
-              ),
+            child: Column(
+              mainAxisSize: MainAxisSize
+                  .min, // Para evitar preencher todo o espaço vertical
+              children: [
+                Container(
+                  width: 50,
+                  height: 50,
+                  margin: const EdgeInsets.symmetric(horizontal: 8),
+                  decoration: BoxDecoration(
+                    color: selectedIndex == index
+                        ? Colors.green.withOpacity(0.3)
+                        : Colors.black.withOpacity(0.1),
+                    shape: BoxShape.circle,
+                  ),
+                  child: Icon(
+                    getIconByCategory(Category.values[index]),
+                  ),
+                ),
+                SizedBox(height: 4), // Espaço entre o ícone e o texto
+                Text(
+                  getCategoryNameByEnum(Category.values[
+                      index]), // Use a função correta para obter o nome da categoria
+                  style: TextStyle(
+                    fontSize: 9, // Ajuste conforme necessário
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+              ],
             ),
           );
         },
@@ -87,7 +133,7 @@ String getCategoryNameByIndex(int index) {
       return 'ShoppingBasket';
     case Category.Hospital:
       return 'Hospital';
-    case Category.Volleyball:
+    case Category.Cigarrinho:
       return 'Volleyball';
     case Category.Movie:
       return 'Movie';
@@ -117,7 +163,7 @@ Category getCategoryByName(String name) {
     case 'Hospital':
       return Category.Hospital;
     case 'Volleyball':
-      return Category.Volleyball;
+      return Category.Cigarrinho;
     case 'Movie':
       return Category.Movie;
     case 'MusicNote':
@@ -145,8 +191,8 @@ IconData getIconByCategory(Category category) {
       return Icons.shopping_basket;
     case Category.Hospital:
       return Icons.local_hospital;
-    case Category.Volleyball:
-      return Icons.sports_volleyball;
+    case Category.Cigarrinho:
+      return Icons.smoking_rooms;
     case Category.Movie:
       return Icons.movie;
     case Category.MusicNote:
@@ -154,7 +200,7 @@ IconData getIconByCategory(Category category) {
     case Category.VideoGame:
       return Icons.videogame_asset;
     case Category.Drink:
-      return Icons.local_drink;
+      return Icons.local_drink_outlined;
     default:
       return Icons.question_mark_rounded;
   }

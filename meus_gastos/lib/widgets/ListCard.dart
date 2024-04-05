@@ -42,20 +42,54 @@ class ListCard extends StatelessWidget {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                Container(
-                  width: 40,
-                  height: 40,
-                  decoration: BoxDecoration(
-                    color: Colors.black.withOpacity(0.1),
-                    shape: BoxShape.circle,
-                  ),
-                  child: Icon(
-                    getIconByCategory(
-                      getCategoryByName(
-                        card.category.replaceAll("Category.", ""),
+                // Container(
+                //   width: 40,
+                //   height: 40,
+                //   decoration: BoxDecoration(
+                //     color: Colors.black.withOpacity(0.1),
+                //     shape: BoxShape.circle,
+                //   ),
+                //   child: Icon(
+                //     getIconByCategory(
+                //       getCategoryByName(
+                //         card.category.replaceAll("Category.", ""),
+                //       ),
+                //     ),
+                //   ),
+                // ),
+                Column(
+                  mainAxisSize: MainAxisSize
+                      .min, // Para evitar preencher todo o espaço vertical
+                  children: [
+                    Container(
+                      width: 50,
+                      height: 50,
+                      margin: const EdgeInsets.symmetric(horizontal: 8),
+                      decoration: BoxDecoration(
+                        color: Colors.black.withOpacity(0.1),
+                        shape: BoxShape.circle,
+                      ),
+                      child: Icon(
+                        getIconByCategory(
+                          getCategoryByName(
+                            card.category.replaceAll("Category.", ""),
+                          ),
+                        ),
                       ),
                     ),
-                  ),
+                    SizedBox(height: 4), // Espaço entre o ícone e o texto
+                    Text(
+                      getCategoryNameByEnum(
+                        getCategoryByName(
+                          card.category.replaceAll("Category.", ""),
+                        ),
+                      ), // Use a função correta para obter o nome da categoria
+                      style: TextStyle(
+                        fontSize: 9, // Ajuste conforme necessário
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                  ],
                 ),
               ],
             ),
