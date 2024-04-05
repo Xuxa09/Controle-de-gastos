@@ -1,10 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
+import 'package:intl/intl.dart';
 
 class CampoComMascara extends StatefulWidget {
   final String dateText;
-
-  CampoComMascara({required this.dateText, Key? key}) : super(key: key);
+  final Function(DateTime) onCompletion;
+  CampoComMascara(
+      {required this.dateText, required this.onCompletion, Key? key})
+      : super(key: key);
 
   @override
   _CampoComMascaraState createState() => _CampoComMascaraState();
@@ -17,13 +20,6 @@ class _CampoComMascaraState extends State<CampoComMascara> {
   void initState() {
     super.initState();
     _dateController.text = widget.dateText;
-  }
-
-  String _getCurrentDate() {
-    DateTime now = DateTime.now();
-    String formattedDate =
-        '${now.day.toString().padLeft(2, '0')}/${now.month.toString().padLeft(2, '0')}/${now.year.toString().substring(2)} ${now.hour.toString().padLeft(2, '0')}:${now.minute.toString().padLeft(2, '0')}';
-    return formattedDate;
   }
 
   FocusNode _focusNode = FocusNode();
@@ -48,6 +44,7 @@ class _CampoComMascaraState extends State<CampoComMascara> {
                 onDateTimeChanged: (DateTime newDateTime) {
                   setState(() {
                     _dateController.text = _formatDateTime(newDateTime);
+                    widget.onCompletion(newDateTime);
                   });
                 },
               ),

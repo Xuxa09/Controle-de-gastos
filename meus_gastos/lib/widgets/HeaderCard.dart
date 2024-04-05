@@ -1,3 +1,4 @@
+import 'package:intl/intl.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 import 'CampoComMascara.dart';
@@ -22,17 +23,23 @@ class _HeaderCardState extends State<HeaderCard> {
     decimalSeparator: ',',
   );
   final descricaoController = TextEditingController();
+  late CampoComMascara dateController = CampoComMascara(
+      dateText: _getCurrentDate(),
+      onCompletion: (DateTime dateTime) {
+        lastDateSelected = dateTime;
+      });
+
+  DateTime lastDateSelected = DateTime.now();
   int lastIndexSelected = 0;
 
   void adicionar() {
     FocusScope.of(context).unfocus();
-    final valor = valorController.numberValue;
-    final descricao = descricaoController.text;
-
+    print(DateFormat('dd/MM/yy HH:mm').parse(dateController.dateText));
+    print(dateController.dateText);
     final newCard = CardModel(
-        amount: valorController.text,
+        amount: valorController.numberValue,
         description: descricaoController.text,
-        date: DateTime.now(),
+        date: lastDateSelected,
         category: Category.values[lastIndexSelected].toString(),
         id: CardService.generateUniqueId());
     CardService.addCard(newCard);
@@ -67,7 +74,7 @@ class _HeaderCardState extends State<HeaderCard> {
               Expanded(child: ValorTextField(controller: valorController)),
               SizedBox(width: 8),
               Expanded(
-                child: CampoComMascara(dateText: _getCurrentDate()),
+                child: dateController,
               ),
             ],
           ),

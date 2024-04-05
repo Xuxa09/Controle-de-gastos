@@ -13,6 +13,7 @@ class CardService {
       final List<dynamic> jsonList = json.decode(cardsString);
       final List<CardModel> cards =
           jsonList.map((jsonItem) => CardModel.fromJson(jsonItem)).toList();
+      cards.sort((a, b) => a.date.compareTo(b.date)); // Ordenar por data
       return cards;
     } else {
       return [];

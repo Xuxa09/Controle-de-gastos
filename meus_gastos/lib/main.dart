@@ -125,7 +125,12 @@ class _MyHomePageState extends State<MyHomePage> {
                           return Dialog(
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(10),
-                              child: DetailScreen(card: card),
+                              child: DetailScreen(
+                                  card: card,
+                                  onAddClicked: () {
+                                    loadCards();
+                                    Navigator.pop(context);
+                                  }),
                             ),
                           );
                         },

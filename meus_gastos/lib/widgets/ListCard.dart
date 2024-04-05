@@ -36,7 +36,7 @@ class ListCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  card.amount,
+                  formatCurrency(card.amount),
                   style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
@@ -82,5 +82,10 @@ class ListCard extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  String formatCurrency(double value) {
+    final formatter = NumberFormat.currency(locale: 'pt_BR', symbol: 'R\$');
+    return formatter.format(value);
   }
 }

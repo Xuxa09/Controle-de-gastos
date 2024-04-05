@@ -27,6 +27,8 @@ class _EditionHeaderCardState extends State<EditionHeaderCard> {
   late MoneyMaskedTextController valorController;
   late CampoComMascara dateController;
 
+  late DateTime lastDateSelected = widget.card.date;
+
   @override
   void initState() {
     super.initState();
@@ -34,14 +36,17 @@ class _EditionHeaderCardState extends State<EditionHeaderCard> {
     valorController = MoneyMaskedTextController(
       leftSymbol: 'R\$ ',
       decimalSeparator: ',',
-      initialValue: double.parse(
-          widget.card.amount.replaceAll('R\$ ', '').replaceAll(',', '')),
+      initialValue: widget.card.amount,
     );
     DateTime date = widget.card.date;
     String formattedDate =
         '${date.day.toString().padLeft(2, '0')}/${date.month.toString().padLeft(2, '0')}/${date.year.toString().substring(2)} ${date.hour.toString().padLeft(2, '0')}:${date.minute.toString().padLeft(2, '0')}';
 
-    dateController = CampoComMascara(dateText: formattedDate);
+    dateController = CampoComMascara(
+        dateText: formattedDate,
+        onCompletion: (DateTime dateTime) {
+          lastDateSelected = dateTime;
+        });
   }
 
   int lastIndexSelected = 0;
@@ -54,13 +59,13 @@ class _EditionHeaderCardState extends State<EditionHeaderCard> {
     final descricao = descricaoController.text;
 
     final newCard = CardModel(
-      amount: valorController.text,
+      amount: valorController.numberValue,
       description: descricaoController.text,
-      date: DateTime.now(),
+      date: lastDateSelected,
       category: Category.values[lastIndexSelected].toString(),
       id: CardService.generateUniqueId(),
     );
-    CardService.addCard(newCard);
+    CardService.updateCard(widget.card.id, newCard);
 
     Future.delayed(Duration(milliseconds: 300), () {
       widget.onAddClicked();

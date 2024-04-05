@@ -7,11 +7,14 @@ import 'CampoComMascara.dart';
 import 'HorizontalCircleList.dart';
 import 'ValorTextField.dart';
 import 'EditionHeaderCard.dart';
+import 'package:meus_gastos/services/CardService.dart' as service;
 
 class DetailScreen extends StatelessWidget {
   final CardModel card;
+  final VoidCallback onAddClicked;
 
-  const DetailScreen({Key? key, required this.card}) : super(key: key);
+  const DetailScreen({required this.onAddClicked, Key? key, required this.card})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +37,12 @@ class DetailScreen extends StatelessWidget {
                   ),
                 ),
                 IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    CardService.deleteCard(card.id);
+                    Future.delayed(Duration(milliseconds: 300), () {
+                      onAddClicked();
+                    });
+                  },
                   icon: Icon(
                     Icons.delete,
                     color: Colors.red,
@@ -47,7 +55,9 @@ class DetailScreen extends StatelessWidget {
           EditionHeaderCard(
             card: card,
             adicionarButtonTitle: 'Atualizar',
-            onAddClicked: () {},
+            onAddClicked: () {
+              onAddClicked();
+            },
           ),
         ],
       ),

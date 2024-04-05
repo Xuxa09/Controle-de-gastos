@@ -2,9 +2,8 @@ import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class CardModel {
-  final String id; // New property
-
-  final String amount;
+  final String id;
+  final double amount;
   final String description;
   final DateTime date;
   final String category;
