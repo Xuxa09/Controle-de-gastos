@@ -54,6 +54,9 @@ class _InsertTransactionViewControllerState
     return Scaffold(
       body: Column(
         children: [
+          CupertinoNavigationBar(
+            middle: Text(widget.title),
+          ),
           if (_showHeaderCard) ...[
             Padding(
               padding: const EdgeInsets.only(top: 16, left: 16, right: 16),
