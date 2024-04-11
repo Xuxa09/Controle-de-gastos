@@ -88,7 +88,7 @@ class _HorizontalCircleListState extends State<HorizontalCircleList> {
                   .min, // Para evitar preencher todo o espaço vertical
               children: [
                 Container(
-                  width: 50,
+                  width: 60,
                   height: 50,
                   margin: const EdgeInsets.symmetric(horizontal: 8),
                   decoration: BoxDecoration(

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
-import 'package:meus_gastos/models/CardModel.dart';
-import 'package:meus_gastos/services/CardService.dart';
+import 'package:meus_gastos/Scenes/InsertTransaction/InsertTransactions/models/CardModel.dart';
+import 'package:meus_gastos/Scenes/InsertTransaction/InsertTransactions/services/CardService.dart';
 import 'CampoComMascara.dart';
 import 'HorizontalCircleList.dart';
 import 'ValorTextField.dart';

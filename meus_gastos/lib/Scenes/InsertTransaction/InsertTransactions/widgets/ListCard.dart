@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:meus_gastos/models/CardModel.dart';
+import 'package:meus_gastos/Scenes/InsertTransaction/InsertTransactions/models/CardModel.dart';
 import 'package:intl/intl.dart';
-import 'package:meus_gastos/widgets/HorizontalCircleList.dart';
+import 'package:meus_gastos/Scenes/InsertTransaction/InsertTransactions/widgets/HorizontalCircleList.dart';
 
 class ListCard extends StatelessWidget {
   final CardModel card;

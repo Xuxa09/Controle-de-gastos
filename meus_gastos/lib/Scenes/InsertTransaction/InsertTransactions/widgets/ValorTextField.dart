@@ -95,7 +95,7 @@ class KeyboardAccessory extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       color: CupertinoColors.white,
-      height: 140,
+      height: 150,
       child: Column(
         children: [
           Expanded(

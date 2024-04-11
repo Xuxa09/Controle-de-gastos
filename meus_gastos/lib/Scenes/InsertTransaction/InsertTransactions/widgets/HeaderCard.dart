@@ -3,9 +3,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 import 'CampoComMascara.dart';
 import 'HorizontalCircleList.dart';
-import 'package:meus_gastos/models/CardModel.dart';
+import 'package:meus_gastos/Scenes/InsertTransaction/InsertTransactions/models/CardModel.dart';
 import 'ValorTextField.dart';
-import 'package:meus_gastos/services/CardService.dart';
+import 'package:meus_gastos/Scenes/InsertTransaction/InsertTransactions/services/CardService.dart';
 
 class HeaderCard extends StatefulWidget {
   final VoidCallback onAddClicked; // Delegate to notify the parent view
@@ -102,8 +102,9 @@ class _HeaderCardState extends State<HeaderCard> {
               },
             ),
           ),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 12),
+          SizedBox(
+            height: 60,
+            width: 300, // Largura igual à da tela
             child: CupertinoButton(
               color: CupertinoColors.systemGreen.darkHighContrastElevatedColor,
               onPressed: adicionar,
@@ -112,7 +113,7 @@ class _HeaderCardState extends State<HeaderCard> {
                 style: TextStyle(fontWeight: FontWeight.bold),
               ),
             ),
-          ),
+          )
         ],
       ),
     );
