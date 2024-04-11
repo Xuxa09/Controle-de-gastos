@@ -7,6 +7,7 @@ import 'package:meus_gastos/Scenes/InsertTransaction/InsertTransactions/services
 import 'package:meus_gastos/Scenes/InsertTransaction/InsertTransactions/InsertTransactionViewController.dart';
 import 'package:meus_gastos/Scenes/InsertTransaction/InsertTransactions/widgets/DetailScreen.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:meus_gastos/Scenes/InsertTransaction/InsertTransactions/chartsViewController.dart';
 
 void main() => runApp(MyApp());
 
@@ -40,7 +41,7 @@ class MyHomePage extends StatelessWidget {
           case 0:
             return InsertTransactionViewController(title: 'My Home Page');
           default:
-            return GreenScreen();
+            return ChartsViewController();
         }
       },
     );
