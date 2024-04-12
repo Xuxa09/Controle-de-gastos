@@ -102,46 +102,43 @@ class _InsertTransactionViewControllerState
                           horizontal: 10, vertical: 5),
                       child: ListCard(
                         onTap: (card) {
-                          showDialog(
-                            context: context,
-                            builder: (BuildContext context) {
-                              return Dialog(
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(10),
-                                  child: DetailScreen(
-                                      card: card,
-                                      onAddClicked: () {
-                                        loadCards();
-                                        Navigator.pop(context);
-                                      }),
-                                ),
-                              );
-                            },
-                          );
+                          print("aqui!!!");
+                          _showCupertinoModalBottomSheet(context, card);
                         },
                         card: cardList[cardList.length - index - 1],
                       ),
                     );
                   },
                 ),
-                Container(
-                  color: Colors.blue,
-                  child: Center(
-                    child: Text(
-                      'Tab 2',
-                      style: TextStyle(
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
-                      ),
-                    ),
-                  ),
-                ),
               ],
             ),
           ),
         ],
       ),
+    );
+  }
+
+  void _showCupertinoModalBottomSheet(BuildContext context, CardModel card) {
+    showCupertinoModalPopup(
+      context: context,
+      builder: (BuildContext context) {
+        return Container(
+          height: MediaQuery.of(context).size.height / 1.1,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(20),
+              topRight: Radius.circular(20),
+            ),
+          ),
+          child: DetailScreen(
+            card: card,
+            onAddClicked: () {
+              loadCards();
+              Navigator.of(context).pop();
+            },
+          ),
+        );
+      },
     );
   }
 }

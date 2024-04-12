@@ -28,7 +28,7 @@ class MyHomePage extends StatelessWidget {
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(CupertinoIcons.home),
-            label: 'Verde',
+            label: 'Verde!',
           ),
           BottomNavigationBarItem(
             icon: Icon(CupertinoIcons.settings),
@@ -39,7 +39,8 @@ class MyHomePage extends StatelessWidget {
       tabBuilder: (context, index) {
         switch (index) {
           case 0:
-            return InsertTransactionViewController(title: 'My Home Page');
+            return const InsertTransactionViewController(
+                title: 'Insert Transaction');
           default:
             return ChartsViewController();
         }

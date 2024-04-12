@@ -65,56 +65,63 @@ class _HeaderCardState extends State<HeaderCard> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(0.0),
-      child: Column(
-        children: [
-          Row(
-            children: [
-              Expanded(child: ValorTextField(controller: valorController)),
-              SizedBox(width: 8),
-              Expanded(
-                child: dateController,
-              ),
-            ],
-          ),
-          SizedBox(height: 8),
-          CupertinoTextField(
-            decoration: BoxDecoration(
-              border: Border(
-                bottom: BorderSide(
-                  color: CupertinoColors
-                      .systemGrey5, // Change the color of the bottom line
+    return GestureDetector(
+      onTap: () {
+        // FocusScope.of(context).unfocus();
+        dispose();
+      },
+      child: Padding(
+        padding: const EdgeInsets.all(0.0),
+        child: Column(
+          children: [
+            Row(
+              children: [
+                Expanded(child: ValorTextField(controller: valorController)),
+                SizedBox(width: 8),
+                Expanded(
+                  child: dateController,
+                ),
+              ],
+            ),
+            SizedBox(height: 8),
+            CupertinoTextField(
+              decoration: BoxDecoration(
+                border: Border(
+                  bottom: BorderSide(
+                    color: CupertinoColors
+                        .systemGrey5, // Change the color of the bottom line
+                  ),
                 ),
               ),
+              placeholder: 'Descrição',
+              controller: descricaoController,
             ),
-            placeholder: 'Descrição',
-            controller: descricaoController,
-          ),
-          SizedBox(height: 24),
-          Container(
-            margin: EdgeInsets.zero,
-            child: HorizontalCircleList(
-              onItemSelected: (index) {
-                setState(() {
-                  lastIndexSelected = index; // Save the last selected index
-                });
-              },
-            ),
-          ),
-          SizedBox(
-            height: 60,
-            width: 300, // Largura igual à da tela
-            child: CupertinoButton(
-              color: CupertinoColors.systemGreen.darkHighContrastElevatedColor,
-              onPressed: adicionar,
-              child: Text(
-                widget.adicionarButtonTitle,
-                style: TextStyle(fontWeight: FontWeight.bold),
+            SizedBox(height: 24),
+            Container(
+              margin: EdgeInsets.zero,
+              child: HorizontalCircleList(
+                onItemSelected: (index) {
+                  setState(() {
+                    lastIndexSelected = index; // Save the last selected index
+                  });
+                },
               ),
             ),
-          )
-        ],
+            SizedBox(
+              height: 60,
+              width: 300, // Largura igual à da tela
+              child: CupertinoButton(
+                color:
+                    CupertinoColors.systemGreen.darkHighContrastElevatedColor,
+                onPressed: adicionar,
+                child: Text(
+                  widget.adicionarButtonTitle,
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+              ),
+            )
+          ],
+        ),
       ),
     );
   }
