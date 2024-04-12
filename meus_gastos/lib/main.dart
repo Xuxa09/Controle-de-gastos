@@ -5,41 +5,79 @@ import 'models/CardModel.dart';
 import 'package:meus_gastos/services/CardService.dart' as service;
 import 'package:meus_gastos/widgets/DetailScreen.dart';
 
-void main() {
-  runApp(const MyApp());
-}
+import 'package:flutter/cupertino.dart';
+
+void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    return CupertinoApp(
+      home: MyHomePage(),
+    );
+  }
+}
 
+class MyHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        FocusManager.instance.primaryFocus?.unfocus();
+        FocusScope.of(context).unfocus(); // Recolhe o teclado
       },
-      child: MaterialApp(
-        title: 'Flutter Demo',
-        theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-          useMaterial3: true,
+      child: CupertinoTabScaffold(
+        tabBar: CupertinoTabBar(
+          items: const <BottomNavigationBarItem>[
+            BottomNavigationBarItem(
+              icon: Icon(CupertinoIcons.home),
+              label: 'Verde!',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(CupertinoIcons.settings),
+              label: 'Azul',
+            ),
+          ],
         ),
-        home: const MyHomePage(title: 'Controle de gastos'),
+        tabBuilder: (context, index) {
+          switch (index) {
+            case 0:
+              return InsertTransactions(
+                title: 'Adicionar',
+                onAddClicked: () {
+                  print('Adicionar');
+                  Future.delayed(Duration(seconds: 5), () {
+                    FocusScope.of(context).unfocus(); // Recolhe o teclado
+                  });
+                },
+              );
+            default:
+              return BlueScreen();
+          }
+        },
       ),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key, required this.title}) : super(key: key);
+class BlueScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(color: Colors.blue);
+  }
+}
 
+class InsertTransactions extends StatefulWidget {
+  const InsertTransactions(
+      {required this.onAddClicked, Key? key, required this.title})
+      : super(key: key);
+  final VoidCallback onAddClicked;
   final String title;
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  State<InsertTransactions> createState() => _InsertTransactionsState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _InsertTransactionsState extends State<InsertTransactions> {
   final TextEditingController _dateController = TextEditingController();
   List<CardModel> cardList = [];
 
@@ -50,17 +88,10 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Future<void> loadCards() async {
-    var cards = await service.CardService
-        .retrieveCards(); // Carregar os dados assíncronos
+    var cards = await service.CardService.retrieveCards();
     setState(() {
       cardList = cards;
     });
-  }
-
-  @override
-  void dispose() {
-    _dateController.dispose();
-    super.dispose();
   }
 
   bool _showHeaderCard = true;
@@ -68,21 +99,18 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text(
-          widget.title,
-          style: const TextStyle(fontSize: 18),
-        ),
-      ),
       body: Column(
         children: [
+          CupertinoNavigationBar(
+            middle: Text(widget.title),
+          ),
           if (_showHeaderCard) ...[
             Padding(
               padding: const EdgeInsets.only(top: 16, left: 16, right: 16),
               child: HeaderCard(
                 adicionarButtonTitle: 'Adicionar',
                 onAddClicked: () {
+                  widget.onAddClicked();
                   setState(() {
                     loadCards();
                   });
@@ -119,22 +147,8 @@ class _MyHomePageState extends State<MyHomePage> {
                       const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                   child: ListCard(
                     onTap: (card) {
-                      showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return Dialog(
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(10),
-                              child: DetailScreen(
-                                  card: card,
-                                  onAddClicked: () {
-                                    loadCards();
-                                    Navigator.pop(context);
-                                  }),
-                            ),
-                          );
-                        },
-                      );
+                      widget.onAddClicked();
+                      _showCupertinoModalBottomSheet(context, card);
                     },
                     card: cardList[cardList.length - index - 1],
                   ),
@@ -144,6 +158,30 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
         ],
       ),
+    );
+  }
+
+  void _showCupertinoModalBottomSheet(BuildContext context, CardModel card) {
+    showCupertinoModalPopup(
+      context: context,
+      builder: (BuildContext context) {
+        return Container(
+          height: MediaQuery.of(context).size.height / 1.1,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(20),
+              topRight: Radius.circular(20),
+            ),
+          ),
+          child: DetailScreen(
+            card: card,
+            onAddClicked: () {
+              loadCards();
+              Navigator.of(context).pop();
+            },
+          ),
+        );
+      },
     );
   }
 }
