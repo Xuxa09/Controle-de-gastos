@@ -42,21 +42,6 @@ class ListCard extends StatelessWidget {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                // Container(
-                //   width: 40,
-                //   height: 40,
-                //   decoration: BoxDecoration(
-                //     color: Colors.black.withOpacity(0.1),
-                //     shape: BoxShape.circle,
-                //   ),
-                //   child: Icon(
-                //     getIconByCategory(
-                //       getCategoryByName(
-                //         card.category.replaceAll("Category.", ""),
-                //       ),
-                //     ),
-                //   ),
-                // ),
                 Column(
                   mainAxisSize: MainAxisSize
                       .min, // Para evitar preencher todo o espaço vertical

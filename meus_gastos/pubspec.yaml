@@ -37,7 +37,8 @@ dependencies:
   shared_preferences: ^2.0.6
   font_awesome_flutter: ^9.2.0
   uuid: ^3.0.5
-
+  fl_chart: ^0.40.0 # Verifique a versão mais recente no pub.dev
+  percent_indicator: ^4.0.0
   
 dev_dependencies:
   flutter_test:
