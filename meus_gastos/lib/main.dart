@@ -42,7 +42,7 @@ class MyHomePage extends StatelessWidget {
           switch (index) {
             case 0:
               return InsertTransactions(
-                title: 'Adicionar',
+                title: 'Adicionar Transações',
                 onAddClicked: () {
                   // FocusScope.of(context).unfocus();
                 },
