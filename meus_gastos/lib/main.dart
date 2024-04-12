@@ -44,10 +44,7 @@ class MyHomePage extends StatelessWidget {
               return InsertTransactions(
                 title: 'Adicionar',
                 onAddClicked: () {
-                  print('Adicionar');
-                  Future.delayed(Duration(seconds: 5), () {
-                    FocusScope.of(context).unfocus(); // Recolhe o teclado
-                  });
+                  // FocusScope.of(context).unfocus();
                 },
               );
             default:
@@ -162,6 +159,7 @@ class _InsertTransactionsState extends State<InsertTransactions> {
   }
 
   void _showCupertinoModalBottomSheet(BuildContext context, CardModel card) {
+    FocusScope.of(context).unfocus();
     showCupertinoModalPopup(
       context: context,
       builder: (BuildContext context) {
@@ -177,7 +175,9 @@ class _InsertTransactionsState extends State<InsertTransactions> {
             card: card,
             onAddClicked: () {
               loadCards();
-              Navigator.of(context).pop();
+              setState(() {
+                _showHeaderCard = false;
+              });
             },
           ),
         );
