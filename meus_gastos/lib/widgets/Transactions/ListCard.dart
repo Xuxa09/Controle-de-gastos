@@ -1,8 +1,9 @@
+import 'package:meus_gastos/enums/Category.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:meus_gastos/models/CardModel.dart';
 import 'package:intl/intl.dart';
-import 'package:meus_gastos/widgets/HorizontalCircleList.dart';
+import 'package:meus_gastos/widgets/Transactions/HorizontalCircleList.dart';
 
 class ListCard extends StatelessWidget {
   final CardModel card;
@@ -47,9 +48,9 @@ class ListCard extends StatelessWidget {
                       .min, // Para evitar preencher todo o espaço vertical
                   children: [
                     Container(
-                      width: 50,
-                      height: 50,
-                      margin: const EdgeInsets.symmetric(horizontal: 8),
+                      width: 30,
+                      height: 30,
+                      margin: const EdgeInsets.symmetric(horizontal: 16),
                       decoration: BoxDecoration(
                         color: Colors.black.withOpacity(0.1),
                         shape: BoxShape.circle,
@@ -60,6 +61,7 @@ class ListCard extends StatelessWidget {
                             card.category.replaceAll("Category.", ""),
                           ),
                         ),
+                        size: 18, // Adjust the size as needed
                       ),
                     ),
                     SizedBox(height: 4), // Espaço entre o ícone e o texto

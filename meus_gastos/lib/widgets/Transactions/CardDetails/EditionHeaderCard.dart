@@ -1,11 +1,12 @@
+import 'package:meus_gastos/enums/Category.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 import 'package:meus_gastos/models/CardModel.dart';
 import 'package:meus_gastos/services/CardService.dart';
-import 'CampoComMascara.dart';
-import 'HorizontalCircleList.dart';
-import 'ValorTextField.dart';
+import '../CampoComMascara.dart';
+import '../HorizontalCircleList.dart';
+import '../ValorTextField.dart';
 
 class EditionHeaderCard extends StatefulWidget {
   final VoidCallback onAddClicked;

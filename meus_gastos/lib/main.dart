@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:meus_gastos/widgets/InsertTransactions.dart';
-import 'package:meus_gastos/widgets/Charts.dart';
+import 'package:meus_gastos/widgets/Transactions/InsertTransactions.dart';
+import 'package:meus_gastos/widgets/Dashboards/Charts.dart';
 import 'package:flutter/cupertino.dart';
 
 void main() => runApp(MyApp());
@@ -26,11 +26,11 @@ class MyHomePage extends StatelessWidget {
           items: const <BottomNavigationBarItem>[
             BottomNavigationBarItem(
               icon: Icon(CupertinoIcons.home),
-              label: 'Verde!',
+              label: 'Transações',
             ),
             BottomNavigationBarItem(
               icon: Icon(CupertinoIcons.settings),
-              label: 'Azul',
+              label: 'Dashboard',
             ),
           ],
         ),

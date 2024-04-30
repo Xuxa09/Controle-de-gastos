@@ -1,3 +1,4 @@
+import 'package:meus_gastos/enums/Category.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
