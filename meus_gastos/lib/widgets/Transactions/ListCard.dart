@@ -1,9 +1,7 @@
 import 'package:meus_gastos/enums/Category.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:meus_gastos/models/CardModel.dart';
 import 'package:intl/intl.dart';
-import 'package:meus_gastos/widgets/Transactions/HorizontalCircleList.dart';
 
 class ListCard extends StatelessWidget {
   final CardModel card;
@@ -56,21 +54,17 @@ class ListCard extends StatelessWidget {
                         shape: BoxShape.circle,
                       ),
                       child: Icon(
-                        getIconByCategory(
-                          getCategoryByName(
-                            card.category.replaceAll("Category.", ""),
-                          ),
-                        ),
+                        CategoryInfo.getByName(
+                                card.category.replaceAll("Category.", ""))
+                            .icon,
                         size: 18, // Adjust the size as needed
                       ),
                     ),
                     SizedBox(height: 4), // Espaço entre o ícone e o texto
                     Text(
-                      getCategoryNameByEnum(
-                        getCategoryByName(
-                          card.category.replaceAll("Category.", ""),
-                        ),
-                      ), // Use a função correta para obter o nome da categoria
+                      CategoryInfo.getByName(
+                              card.category.replaceAll("Category.", ""))
+                          .name,
                       style: TextStyle(
                         fontSize: 9, // Ajuste conforme necessário
                       ),
