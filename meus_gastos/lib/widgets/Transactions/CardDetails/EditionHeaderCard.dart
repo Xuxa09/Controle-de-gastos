@@ -49,10 +49,8 @@ class _EditionHeaderCardState extends State<EditionHeaderCard> {
           lastDateSelected = dateTime;
         });
 
-    // Inicialize o FocusNode
     descricaoFocusNode = FocusNode();
 
-    // Passo 3: Solicite o foco após a construção da UI
     WidgetsBinding.instance.addPostFrameCallback((_) {
       descricaoFocusNode.requestFocus();
     });
@@ -60,7 +58,6 @@ class _EditionHeaderCardState extends State<EditionHeaderCard> {
 
   @override
   void dispose() {
-    // Não esqueça de descartar os controllers e o FocusNode
     descricaoController.dispose();
     valorController.dispose();
     descricaoFocusNode.dispose();
@@ -72,9 +69,6 @@ class _EditionHeaderCardState extends State<EditionHeaderCard> {
   final double valorInicial = 0.0;
 
   void adicionar() {
-    final valor = valorController.numberValue;
-    final descricao = descricaoController.text;
-
     final newCard = CardModel(
       amount: valorController.numberValue,
       description: descricaoController.text,
@@ -114,8 +108,10 @@ class _EditionHeaderCardState extends State<EditionHeaderCard> {
               ),
             ),
             placeholder: 'Descrição',
+            placeholderStyle: TextStyle(color: CupertinoColors.systemGrey3),
             controller: descricaoController,
             focusNode: descricaoFocusNode,
+            style: TextStyle(color: Colors.white),
           ),
           SizedBox(height: 16),
           Container(
@@ -131,7 +127,7 @@ class _EditionHeaderCardState extends State<EditionHeaderCard> {
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 12),
             child: CupertinoButton(
-              color: CupertinoColors.systemGreen.darkHighContrastElevatedColor,
+              color: CupertinoColors.systemBlue,
               onPressed: adicionar,
               child: Text(
                 widget.adicionarButtonTitle,
