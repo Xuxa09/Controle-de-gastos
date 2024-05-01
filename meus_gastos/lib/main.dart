@@ -9,6 +9,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CupertinoApp(
+      theme: CupertinoThemeData(
+        brightness: Brightness.light, // Define explicitamente o tema claro
+      ),
       home: MyHomePage(),
     );
   }
@@ -40,7 +43,7 @@ class MyHomePage extends StatelessWidget {
               return InsertTransactions(
                 title: 'Adicionar Transações',
                 onAddClicked: () {
-                  // FocusScope.of(context).unfocus();
+                  // FocusScope.of(context). un-focus.
                 },
               );
             default:
@@ -49,12 +52,5 @@ class MyHomePage extends StatelessWidget {
         },
       ),
     );
-  }
-}
-
-class BlueScreen extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Container(color: Colors.blue);
   }
 }
