@@ -1,10 +1,6 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:meus_gastos/widgets/Transactions/InsertTransactions.dart';
-import 'package:flutter/material.dart';
 import 'package:meus_gastos/widgets/Transactions/InsertTransactions.dart';
 import 'package:meus_gastos/widgets/Dashboards/Charts.dart';
-import 'package:flutter/cupertino.dart';
 
 void main() => runApp(MyApp());
 
