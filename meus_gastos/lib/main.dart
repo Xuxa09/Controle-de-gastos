@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:meus_gastos/widgets/Transactions/InsertTransactions.dart';
-import 'package:meus_gastos/widgets/Dashboards/Charts.dart';
+import 'package:meus_gastos/widgets/Dashboards/DashboardScreen.dart';
 
 void main() => runApp(MyApp());
 
@@ -9,7 +9,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CupertinoApp(
-      theme: CupertinoThemeData(
+      theme: const CupertinoThemeData(
         brightness: Brightness.light,
       ),
       home: MyHomePage(),
@@ -34,11 +34,17 @@ class _MyHomePageState extends State<MyHomePage> {
           backgroundColor: Colors.black38,
           items: const <BottomNavigationBarItem>[
             BottomNavigationBarItem(
-              icon: Icon(CupertinoIcons.home),
+              icon: Icon(
+                CupertinoIcons.home,
+                size: 20,
+              ),
               label: 'Transações',
             ),
             BottomNavigationBarItem(
-              icon: Icon(CupertinoIcons.settings),
+              icon: Icon(
+                CupertinoIcons.chart_bar,
+                size: 20,
+              ),
               label: 'Dashboard',
             ),
           ],
