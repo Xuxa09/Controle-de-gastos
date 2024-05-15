@@ -9,6 +9,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CupertinoApp(
+      debugShowCheckedModeBanner: false, // Define esta propriedade como false
       theme: const CupertinoThemeData(
         brightness: Brightness.light,
       ),
@@ -34,17 +35,11 @@ class _MyHomePageState extends State<MyHomePage> {
           backgroundColor: Colors.black38,
           items: const <BottomNavigationBarItem>[
             BottomNavigationBarItem(
-              icon: Icon(
-                CupertinoIcons.home,
-                size: 20,
-              ),
+              icon: Icon(CupertinoIcons.home, size: 20),
               label: 'Transações',
             ),
             BottomNavigationBarItem(
-              icon: Icon(
-                CupertinoIcons.chart_bar,
-                size: 20,
-              ),
+              icon: Icon(CupertinoIcons.chart_bar, size: 20),
               label: 'Dashboard',
             ),
           ],
@@ -55,39 +50,26 @@ class _MyHomePageState extends State<MyHomePage> {
           },
         ),
         tabBuilder: (context, index) {
-          Widget content;
+          if (index == 1 && selectedTab == 1) {
+            return DashboardScreen(
+              key: UniqueKey(), // Força a reconstrução do widget
+              isActive: true,
+            );
+          }
+
           switch (index) {
             case 0:
-              content = InsertTransactions(
+              return InsertTransactions(
                 title: 'Meus Gastos',
                 onAddClicked: () {},
               );
-              break;
             default:
-              content = DashboardScreen(isActive: selectedTab == 1);
-              break;
+              return DashboardScreen(
+                key: ValueKey(index),
+                isActive: selectedTab == 1,
+              );
           }
-          return content;
         },
-      ),
-    );
-  }
-}
-
-class BlueController extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      color: Colors.blue,
-      child: Center(
-        child: Text(
-          'Blue Controller',
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 24,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
       ),
     );
   }
